@@ -2,7 +2,7 @@
 
 **Author**: Mandy Mason
 
-**Version**: 1.0.0 
+**Version**: 1.0.2 
 
 ## Overview
 Backend server for City Explorer which provides weather information to the client upon request.
@@ -36,7 +36,7 @@ Actual time needed to complete: 25 minutes
 
 Estimate of time needed to complete: 2.5 hours
 
-Start time: 10:00pm
+Start time: 10:00pm (paused @ 12:30am - incomplete)
 
 Finish time: 
 
