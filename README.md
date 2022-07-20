@@ -34,7 +34,7 @@ Actual time needed to complete: 25 minutes
 
 **Name of feature: #2 - Weather** 
 
-Estimate of time needed to complete: 1 hour 30 minutes
+Estimate of time needed to complete: 2.5 hours
 
 Start time: 10:00pm
 
