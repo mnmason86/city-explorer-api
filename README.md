@@ -19,6 +19,7 @@ Initial setup: 7/19/2022
 
 ## Credit and Collaborations
 Partner for Wireframe: Anthony Johnson
+HUGE THANKS to Jacob Knaack for demo code and explanations!!
 
 ## Features
 
@@ -36,8 +37,14 @@ Actual time needed to complete: 25 minutes
 
 Estimate of time needed to complete: 2.5 hours
 
-Start time: 10:00pm (paused @ 12:30am - incomplete)
+Start time: 10:00pm (paused @ 12:30am - incomplete / resume 3:30pm following day)
 
 Finish time: 
 
 Actual time needed to complete: 
+
+### Whiteboard of WRRC 
+
+### Lab 7 Whiteboard WRRC
+
+![Lab 07 Whiteboard](img/lab07wb.jpg)

@@ -3,56 +3,62 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const weatherData = require('./data/weather.json');
+const { application } = require('express');
 const server = express();
 server.use(cors());
+
 const PORT = process.env.PORT;
+
+//import weather data
+const weatherData = require('./data/weather.json');
+
 
 
 class Forecast {
-  constructor(date,description) {
-    this.date = date;
-    this.description = description;
-  }
-
-  static getForecast(city) {
-    const dailyForecast = city.data.map((element) => {
-      const date = element.valid_date;
-      const description = `Daily Low: ${element.low_temp}, ` + `Daily High: ${element.high_temp} ` + `with ${element.weatherData.description}`;
-      return new Forecast (date, description);
-    });
-    return dailyForecast;
+  constructor(obj) {
+    this.date = obj.datetime;
+    this.description = 'Low of ' + obj.low_temp + ', High of ' + obj.high_temp +  ' with ' + obj.weather.description.toLowerCase();
   }
 }
 
-function locate (name, lat, lon, weatherInfo) {
-  try {
-    const city = weatherInfo.find((element) => {
-      return (
-        name === element.city_name &&
-        Math.floor(lat) === Math.floor(element.lat) &&
-        Math.floor(lon) === Math.floor(element.lon)
-      );
-    });
-    return city;
-  } catch (error) {
-    throw new Error('No data exists for this city' + error);
-  }
-}
 
 // /weather API endpoint
-server.get('/weather', (request, response) => {
 
-  const cityData = locate(request.query.city_name, request.query.lat, request.query.lon, weatherData);
-  console.log(cityData);
-  if (cityData) {
-    response.send('City Located');
-  } else {
-    response.status(404).send('No weather data exists for this city');
+server.get('/weather', (request, response) => {
+ console.log(request.query);
+  let {lat, lon, searchQuery} = request.query;
+
+  if (!lat || !lon || !searchQuery) {
+    throw new Error('Please send lat, lon, and search query as a query string.');
   }
+
+  // find appropriate value from weatherData
+  //use Search Query to find an object within data
+  let city = weatherData.find(city => {
+    return city.city_name.toLowerCase() === searchQuery.toLowerCase();
   });
 
-
-server.listen(PORT, () => {
-  console.log('Server is running on port :: ' + PORT);
+  if (city) {
+    // create forecast objects for each forecast in city.data
+    let forecastArray = city.data.map(forecast => new Forecast(forecast));
+    response.send(forecastArray);
+  } else {
+    response.status(404).send('City not found');
+  }
 });
+
+
+
+// error handling
+
+  server.use('*', (error, request, response, next) => {
+    response.status(500).send(error);
+  });
+
+  server.use('*', (request, response) => {
+    response.status(404).send('Route not found');
+  });
+
+  server.listen(PORT, () => {
+  console.log('Server is running on port :: ' + PORT);
+  });
