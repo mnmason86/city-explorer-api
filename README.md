@@ -21,6 +21,12 @@ Initial setup: 7/19/2022
 Partner for Wireframe: Anthony Johnson
 HUGE THANKS to Jacob Knaack for demo code and explanations!!
 
+## Lab 07
+
+### Whiteboard of WRRC 
+
+![Lab 07 Whiteboard](img/lab07wb.jpg)
+
 ## Features
 
 **Name of feature: #1 - Initial Setup** 
@@ -39,12 +45,25 @@ Estimate of time needed to complete: 2.5 hours
 
 Start time: 10:00pm (paused @ 12:30am - incomplete / resume 3:30pm following day)
 
-Finish time: 
+Finish time: 7:30pm (next day)
 
-Actual time needed to complete: 
+Actual time needed to complete: 5 hours
+
+
+## Lab 08
 
 ### Whiteboard of WRRC 
 
-### Lab 7 Whiteboard WRRC
+![Lab 08 Whiteboard](lab08wb.jpg)
 
-![Lab 07 Whiteboard](img/lab07wb.jpg)
+## Features
+
+**Name of feature: #1 - Weather (live)** 
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 11:00pm
+
+Finish time:
+
+Actual time needed to complete:

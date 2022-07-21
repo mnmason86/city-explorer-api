@@ -1,4 +1,3 @@
-'use strict';
 
 require('dotenv').config();
 const express = require('express');
@@ -6,12 +5,13 @@ const cors = require('cors');
 const { application } = require('express');
 const server = express();
 server.use(cors());
-
-const PORT = process.env.PORT;
+const axios = require('axios');
 
 //import weather data
 const weatherData = require('./data/weather.json');
 
+const PORT = process.env.PORT;
+const weatherApiKey = process.env.WEATHER_API_KEY;
 
 
 class Forecast {
@@ -22,7 +22,34 @@ class Forecast {
 }
 
 
-// /weather API endpoint
+//--------------live weather does not run currently 7/21 12:50am---------------------
+
+// server.get('/weather', (request, response) => {
+//   let {lat, lon, searchQuery} = request.query;
+//   let url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${request.query.lat}&lon=${request.query.lon}&key=${weatherApiKey}`;
+
+//   axios.get(url).then(response => {
+
+//     let data = response.data[0];
+    
+//     // let city = data.find(city => {
+//     //   return city.city_name.toLowerCase() === searchQuery.toLowerCase();
+//     // });
+  
+//     if (response) {
+//       // create forecast objects for each forecast in city.data
+//       let forecastArray = city.data.map(forecast => new Forecast(forecast));
+//       response.send(forecastArray);
+//     } else {
+//       response.status(404).send('City not found');
+//     }
+
+//   });
+
+// });
+
+
+//------------------server.get runs currently 7/21 12:24am--------------------------
 
 server.get('/weather', (request, response) => {
  console.log(request.query);
@@ -49,7 +76,7 @@ server.get('/weather', (request, response) => {
 
 
 
-// error handling
+// error handling ------------------------------------------------------------------
 
   server.use('*', (error, request, response, next) => {
     response.status(500).send(error);
