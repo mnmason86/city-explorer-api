@@ -25,6 +25,7 @@ Live Weather and Movie info: 7/21/2022
 ### Whiteboard of WRRC 
 
 ![Lab 07 Whiteboard](img/lab07wb.jpg)
+Collab: Anthony Johnson
 
 ## Features
 
@@ -54,6 +55,7 @@ Actual time needed to complete: 5 hours
 ### Whiteboard of WRRC 
 
 ![Lab 08 Whiteboard](lab08wb.jpg)
+Collab: Caelin Hargrave
 
 ## Features
 
@@ -77,7 +79,25 @@ Finish time: 1:00am
 
 Actual time needed to complete: 3.5 hours
 
+## Lab 09
+
+### Whiteboard of WRRC 
+
+![Lab 09 Whiteboard](lab09wb.jpg)
+Collab: Austin Limanek
+
+**Name of feature: #1 - Modularize** 
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 11:00am
+
+Finish time: 11:40am
+
+Actual time needed to complete: 40 minutes
+
 ## Credit and Collaborations
 
 HUGE THANKS to Jacob Knaack for demo code and explanations!!
 Kassie Bradshaw, Tammy Do - help connecting APIs to server
+Joshua Frazer - modularization
