@@ -54,7 +54,7 @@ Actual time needed to complete: 5 hours
 
 ### Whiteboard of WRRC 
 
-![Lab 08 Whiteboard](lab08wb.jpg)
+![Lab 08 Whiteboard](img/lab08wb.jpg)
 Collab: Caelin Hargrave
 
 ## Features
@@ -83,7 +83,7 @@ Actual time needed to complete: 3.5 hours
 
 ### Whiteboard of WRRC 
 
-![Lab 09 Whiteboard](lab09wb.jpg)
+![Lab 09 Whiteboard](img/lab09wb.jpg)
 Collab: Austin Limanek
 
 **Name of feature: #1 - Modularize** 
