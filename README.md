@@ -2,7 +2,7 @@
 
 **Author**: Mandy Mason
 
-**Version**: 1.0.2 
+**Version**: 1.2.0 
 
 ## Overview
 Backend server for City Explorer which provides weather information to the client upon request.
@@ -16,10 +16,9 @@ Express, Dotenv, Cors, Node
 
 ## Change Log
 Initial setup: 7/19/2022
+Weather from data.json: 7/20/2022
+Live Weather and Movie info: 7/21/2022
 
-## Credit and Collaborations
-Partner for Wireframe: Anthony Johnson
-HUGE THANKS to Jacob Knaack for demo code and explanations!!
 
 ## Lab 07
 
@@ -64,6 +63,21 @@ Estimate of time needed to complete: 2 hours
 
 Start time: 11:00pm
 
-Finish time:
+Finish time: 9:00pm (following day)
 
-Actual time needed to complete:
+Actual time needed to complete: 4.5 hours
+
+**Name of feature: #2 - Movie Data** 
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 9:30pm
+
+Finish time: 1:00am
+
+Actual time needed to complete: 3.5 hours
+
+## Credit and Collaborations
+
+HUGE THANKS to Jacob Knaack for demo code and explanations!!
+Kassie Bradshaw, Tammy Do - help connecting APIs to server
