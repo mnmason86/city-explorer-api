@@ -19,14 +19,14 @@ class Forecast {
 }
 
 class Movie {
-  constructor(title, overview, averageVotes, totalVotes, imageUrl, popularity, releasedOn) {
-    this.title = title;
-    this.overview = overview;
-    this.average_votes = averageVotes;
-    this.total_votes = totalVotes;
-    this.image_url = imageUrl;
-    this.popularity = popularity;
-    this.released_on = releasedOn;
+  constructor(movie) {
+    this.title = movie.title;
+    this.overview = movie.overview;
+    this.vote_average= movie.vote_average;
+    this.vote_count = movie.vote_count;
+    this.image_url = movie.poster_path;
+    this.popularity = movie.popularity;
+    this.released_on = movie.release_date;
   }
 }
 
@@ -40,23 +40,24 @@ server.get ('/weather', (request, response) => {
 
       const weatherArray = res.data.data.map(forecast => new Forecast(forecast));
       response.send(weatherArray);
+      
   });
-});
-
-//-----------------------get movie info---------------------------
+});    
+ 
+//-----------------------get movie info------------------------------
 
 server.get ('/movies', (request, response) => {
-
-  let url = `https://api.themoviedb.org/3/movie?api_key=${movieApiKey}&query=${request.query}&include_adult=false`;
+console.log(request.query.city_name);
+  let url = `https://api.themoviedb.org/3/search/movie?api_key=${movieApiKey}&query=${request.query.city_name}&include_adult=false`;
   console.log(url);
-  
-  axios.get(url).then(res => {
 
-    const movieArray = res.results.map(movie => new Movie(movie));
+  axios.get(url).then(res => {
+    console.log(res);
+    const movieArray = res.data.results.map(movie => new Movie(movie));
     response.send(movieArray);
   });
 });
-
+ 
 // error handling ------------------------------------------------------------------
 
   server.use('*', (error, request, response, next) => {
