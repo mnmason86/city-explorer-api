@@ -1,4 +1,3 @@
-'use strict';
 
 require('dotenv').config();
 const express = require('express');
@@ -6,13 +5,11 @@ const cors = require('cors');
 const { application } = require('express');
 const server = express();
 server.use(cors());
+const axios = require('axios');
 
 const PORT = process.env.PORT;
-
-//import weather data
-const weatherData = require('./data/weather.json');
-
-
+const weatherApiKey = process.env.WEATHER_API_KEY;
+const movieApiKey = process.env.MOVIE_API_KEY;
 
 class Forecast {
   constructor(obj) {
@@ -21,35 +18,47 @@ class Forecast {
   }
 }
 
-
-// /weather API endpoint
-
-server.get('/weather', (request, response) => {
- console.log(request.query);
-  let {lat, lon, searchQuery} = request.query;
-
-  if (!lat || !lon || !searchQuery) {
-    throw new Error('Please send lat, lon, and search query as a query string.');
+class Movie {
+  constructor(movie) {
+    this.title = movie.title;
+    this.overview = movie.overview;
+    this.vote_average= movie.vote_average;
+    this.vote_count = movie.vote_count;
+    this.image_url = `https://image.tmdb.org/t/p/w300${movie.poster_path}`;
+    this.popularity = movie.popularity;
+    this.released_on = movie.release_date;
   }
+}
 
-  // find appropriate value from weatherData
-  //use Search Query to find an object within data
-  let city = weatherData.find(city => {
-    return city.city_name.toLowerCase() === searchQuery.toLowerCase();
+//----------------------get weather info--------------------------
+
+server.get ('/weather', (request, response) => {
+
+  let url = `https://api.weatherbit.io/v2.0/forecast/daily?days=3&lat=${request.query.lat}&lon=${request.query.lon}&key=${weatherApiKey}`;
+  
+  axios.get(url).then(res => {
+
+      const weatherArray = res.data.data.map(forecast => new Forecast(forecast));
+      response.send(weatherArray);
+      
   });
+});    
+ 
+//-----------------------get movie info------------------------------
 
-  if (city) {
-    // create forecast objects for each forecast in city.data
-    let forecastArray = city.data.map(forecast => new Forecast(forecast));
-    response.send(forecastArray);
-  } else {
-    response.status(404).send('City not found');
-  }
+server.get ('/movies', (request, response) => {
+console.log(request.query.city_name);
+  let url = `https://api.themoviedb.org/3/search/movie?api_key=${movieApiKey}&query=${request.query.city_name}&include_adult=false`;
+  console.log(url);
+
+  axios.get(url).then(res => {
+    console.log(res);
+    const movieArray = res.data.results.map(movie => new Movie(movie));
+    response.send(movieArray);
+  });
 });
-
-
-
-// error handling
+ 
+// error handling ------------------------------------------------------------------
 
   server.use('*', (error, request, response, next) => {
     response.status(500).send(error);
