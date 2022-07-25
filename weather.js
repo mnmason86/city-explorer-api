@@ -16,12 +16,14 @@ class Forecast {
     const key = 'weather-' + lat + lon;
     let url = `https://api.weatherbit.io/v2.0/forecast/daily?days=3&lat=${lat}&lon=${lon}&key=${weatherApiKey}`;
     
-    if(!cache[key]) {
+    if(cache[key] && (Date.now() - cache[key].timestamp < 120000)) {
+      console.log('Weather cache hit');
+    } else {
+      console.log('Weather cache miss, fetching');
       cache[key] = {};
       cache[key].timestamp = Date.now();
       cache[key].data = axios.get(url)
       .then(weatherData => parseWeatherData(weatherData.data));
-      console.log(cache[key].data);
     } 
     return cache[key].data;
   }

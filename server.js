@@ -11,7 +11,7 @@ const PORT = process.env.PORT;
 
 const weather = require('./weather');
 const movies = require('./movies');
-const { response } = require('express');
+ 
 
 //endpoints -------------------------------------------------------------------------
 
@@ -21,8 +21,7 @@ server.get ('/movies', handleMovies);
 // data handling-----------------------------------------------------------------------
 
 function handleMovies(cityExReq, cityExRes) {
- 
-  let cityName = cityExReq.query.city;
+  let cityName = cityExReq.query.city_name;
   movies(cityName)
   .then(moviesArray => cityExRes.send(moviesArray))
   .catch((error) => {
@@ -33,7 +32,6 @@ function handleMovies(cityExReq, cityExRes) {
 
 function handleWeather(cityExReq, cityExRes) {
   const {lat,lon} = cityExReq.query;
-  console.log(lat,lon);
   weather(lat,lon)
   .then (forecasts => cityExRes.send(forecasts))
   .catch((error) => {
@@ -45,7 +43,6 @@ function handleWeather(cityExReq, cityExRes) {
 
   server.use('*', (error, request, response, next) => {
     response.status(500).send(error);
-    console.log('server ping');
   });
 
   server.use('*', (request, response) => {

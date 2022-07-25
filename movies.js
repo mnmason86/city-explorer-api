@@ -18,18 +18,22 @@ class Movie {
   }
 }
   function fetchMovies(cityName){
+
     const key = 'movies-' + cityName;
     let url = `https://api.themoviedb.org/3/search/movie?api_key=${movieApiKey}&query=${cityName}&include_adult=false`;
 
-    if(!cache[key]) {
+    if(cache[key] && (Date.now() - cache[key].timestamp < 120000)) {
+      console.log('Movie cache hit');
+    } else {
+      console.log('Movie cache miss, fetching')
       cache[key] = {};
       cache[key].timestamp = Date.now();
       cache[key].data = axios.get(url)
       .then(movieData => parseMovieData(movieData.data));
-      console.log(cache[key].data);
     } 
     return cache[key].data;
   }
+  
  
   function parseMovieData(data) {
     try {
