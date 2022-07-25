@@ -96,8 +96,25 @@ Finish time: 11:40am
 
 Actual time needed to complete: 40 minutes
 
+![Lab 10 Whiteboard](img/lab10wb.jpg)
+
+## Features
+
+**Name of feature: #1 - Cache** 
+
+Estimate of time needed to complete: 3 hours
+
+Start time: 4:45pm (paused at 6:30pm, resume at 10:30am next day)
+
+Finish time: 12:00pm
+
+Actual time needed to complete: 3 hours 15 minutes
+
 ## Credit and Collaborations
 
-HUGE THANKS to Jacob Knaack for demo code and explanations!!
-Kassie Bradshaw, Tammy Do - help connecting APIs to server
+Jacob Knaack  - demo code
+Charlie Fadness - help with API key
+Ben Mills - help with local server
+Kassie Bradshaw,Tammy Do - help connecting APIs to server
+Justin Hammerly - help with Heroku/Netlify
 Joshua Frazer - modularization
