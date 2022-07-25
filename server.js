@@ -17,25 +17,27 @@ const Movie = require('./movies');
 // weather endpoint
 
 server.get ('/weather', (request, response) => {
-   Forecast.getForecast(request.query.lat, request.query.lon, response);
+   Forecast.handleForecast(request.query.lat, request.query.lon, response);
 }); 
   
 
 // movie endpoint
 
 server.get ('/movies', (request, response) => {
-    Movie.getMovies(request.query.city_name,response);
+    Movie.handleMovies(request.query.city_name,response);
 });
 // error handling ------------------------------------------------------------------
 
   server.use('*', (error, request, response, next) => {
     response.status(500).send(error);
+    console.log('server ping');
   });
 
   server.use('*', (request, response) => {
     response.status(404).send('Route not found');
   });
 
+// listener --------------------------------------------------------------------------
   server.listen(PORT, () => {
   console.log('Server is running on port :: ' + PORT);
   });
