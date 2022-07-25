@@ -1,31 +1,44 @@
+'use strict';
 
 require('dotenv').config();
-const express = require('express');
 
+const express = require('express');
 const cors = require('cors');
-const { application } = require('express');
 
 const server = express();
 server.use(cors());
-
-const axios = require('axios');
 const PORT = process.env.PORT;
 
-const Forecast = require('./weather');
-const Movie = require('./movies');
+const weather = require('./weather');
+const movies = require('./movies');
+ 
 
-// weather endpoint
+//endpoints -------------------------------------------------------------------------
 
-server.get ('/weather', (request, response) => {
-   Forecast.getForecast(request.query.lat, request.query.lon, response);
-}); 
-  
+server.get ('/weather', handleWeather);
+server.get ('/movies', handleMovies);
 
-// movie endpoint
+// data handling-----------------------------------------------------------------------
 
-server.get ('/movies', (request, response) => {
-    Movie.getMovies(request.query.city_name,response);
-});
+function handleMovies(cityExReq, cityExRes) {
+  let cityName = cityExReq.query.city_name;
+  movies(cityName)
+  .then(moviesArray => cityExRes.send(moviesArray))
+  .catch((error) => {
+    console.log(error);
+    cityExRes.status(500).send(error);
+  });
+}
+
+function handleWeather(cityExReq, cityExRes) {
+  const {lat,lon} = cityExReq.query;
+  weather(lat,lon)
+  .then (forecasts => cityExRes.send(forecasts))
+  .catch((error) => {
+    console.log(error);
+    cityExRes.status(500).send('Something went wrong');
+  });
+}
 // error handling ------------------------------------------------------------------
 
   server.use('*', (error, request, response, next) => {
@@ -36,6 +49,7 @@ server.get ('/movies', (request, response) => {
     response.status(404).send('Route not found');
   });
 
+// listener --------------------------------------------------------------------------
   server.listen(PORT, () => {
   console.log('Server is running on port :: ' + PORT);
   });
