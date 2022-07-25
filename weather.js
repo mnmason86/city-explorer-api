@@ -1,7 +1,8 @@
+'use strict';
 
 const axios = require('axios');
 const weatherApiKey = process.env.WEATHER_API_KEY;
-const weatherCache = {};
+let cache = require('./cache.js')
 
 
 class Forecast {
@@ -9,38 +10,33 @@ class Forecast {
     this.date = obj.datetime;
     this.description = 'Low of ' + obj.low_temp + ', High of ' + obj.high_temp +  ' with ' + obj.weather.description.toLowerCase();
   }
+}
 
-
-  static async getForecast(lat, lon, cityExRes) {
-    console.log('Getting initial forecast data from API');
+  function fetchWeather(lat, lon) {
+    const key = 'weather-' + lat + lon;
     let url = `https://api.weatherbit.io/v2.0/forecast/daily?days=3&lat=${lat}&lon=${lon}&key=${weatherApiKey}`;
     
-    axios.get(url).then(res => {
-
-      const weatherArray = res.data.data.map(forecast => new Forecast(forecast));
-      cityExRes.send(weatherArray);
-      
-    });
+    if(!cache[key]) {
+      cache[key] = {};
+      cache[key].timestamp = Date.now();
+      cache[key].data = axios.get(url)
+      .then(weatherData => parseWeatherData(weatherData.data));
+      console.log(cache[key].data);
+    } 
+    return cache[key].data;
   }
 
 
-static async handleWeather(cityExReq, cityExRes) {
+function parseWeatherData(weatherData) {
+  try {
+    const forecasts = weatherData.data.map(forecast => {
+      return new Forecast(forecast);
+    });
+    return Promise.resolve(forecasts);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
 
-  console.log('weather query attempt');  
 
-    let cityName = cityExReq;
-  
-    if (weatherCache[cityName]) {
-      console.log('Data found in weather cache', weatherCache);
-      const weatherArray = cityExRes.data.data.map (forecast => new Forecast(forecast));
-      cityExRes.send(weatherArray);
-    } else {
-      let weatherResponse = await this.getForecast(cityName);
-      console.log('Adding weather API data to cache');
-      weatherCache[cityName] = weatherResponse.data;
-      cityExRes.send(weatherResponse);
-    } 
-  };
-}
-
-module.exports = Forecast;
+module.exports = fetchWeather;
